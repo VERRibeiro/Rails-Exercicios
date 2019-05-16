@@ -1,0 +1,28 @@
+<%= form_with(model: research, local: true) do |form| %>
+  <% if research.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(research.errors.count, "error") %> prohibited this research from being saved:</h2>
+
+      <ul>
+      <% research.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :descricao %>
+    <%= form.text_field :descricao %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+  <div id="options">
+    <%=form.fields_for :options do |options_fields|%>
+      <%= render partial: "option_fields", locals:{f: options_fields} %>
+    <%end%>
+    <%= link_to_add_association('[Adicionar Alternativa]', form, :options) %>
+  </div>
+<% end %>
